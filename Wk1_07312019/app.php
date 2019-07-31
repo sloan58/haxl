@@ -24,11 +24,7 @@ try {
 
 try {
 
-    $response = $axl->getPhone([
-
-        'name' => 'SEP123123123123',
-
-    ]);
+    $response = $axl->getCCMVersion();
 
     var_dump($response);
 
