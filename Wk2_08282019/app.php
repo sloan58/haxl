@@ -24,9 +24,17 @@ try {
 
 try {
 
-    $response = $axl->getCCMVersion();
+    $response = $axl->getPhone(['name' => 'SEP234234234234']);
 
-    var_dump($response);
+    // Print AXL Soap Request/Response Headers 
+    // var_dump($axl->__getLastRequestHeaders());
+    // var_dump($axl->__getLastRequest());
+    
+    // var_dump($axl->__getLastResponseHeaders());
+    // print_r($axl->__getLastResponse());
+    
+    $maxCalls = $response->return->phone->lines->line->maxNumCalls;
+    printf("Your max calls are %s\n", $maxCalls);
 
 } catch (SoapFault $e) {
 
