@@ -22,14 +22,20 @@ try {
     var_dump($e->getMessage());
 }
 
+$query = 'SELECT d.name, d.description, eu.userid FROM device d JOIN enduser eu ON d.fkenduser = eu.pkid WHERE eu.userid NOT LIKE "Token%"';
+
 try {
 
-    $response = $axl->getCCMVersion();
+    $response = $axl->executeSqlQuery(['sql' => $query]);
 
-    $version = $response->return->componentVersion->version;
+    $data = is_array($response->return->row) ? $response->return->row : [$response->return->row];
+
+    print implode(',', ['Device Name', 'Device Description', 'UserID']) . "\n";
     
-    printf("You're running version %s", $version);
-
+    foreach($data as $d) {
+        print implode(',', [$d->name, $d->description, $d->userid]) . "\n";
+    }
+    
 } catch (SoapFault $e) {
 
     var_dump($e->getMessage());

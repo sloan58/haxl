@@ -22,14 +22,15 @@ try {
     var_dump($e->getMessage());
 }
 
+$query = 'SELECT n.dnorpattern, n.description, r.name, n.outsidedialtone FROM numplan n JOIN routepartition r ON n.fkroutepartition = r.pkid WHERE fkroutepartition IN '.
+        '(SELECT fkroutepartition FROM callingsearchspacemember WHERE fkcallingsearchspace = ' .
+        '(SELECT pkid FROM callingsearchspace WHERE name = "Karma_Internal-CSS")) AND dnorpattern like "9%" AND outsidedialtone = "f" ';
+
 try {
 
-    $response = $axl->getCCMVersion();
+    $response = $axl->executeSqlQuery(['sql' => $query]);
 
-    $version = $response->return->componentVersion->version;
-    
-    printf("You're running version %s", $version);
-
+    var_dump($response->return);
 } catch (SoapFault $e) {
 
     var_dump($e->getMessage());

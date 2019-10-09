@@ -26,7 +26,7 @@ try {
 
     $response = $axl->getPhone(['name' => 'SEP234234234234']);
 
-    // Print AXL Soap Request/Response Headers 
+    // Print AXL Soap Request/Response Headers
     // var_dump($axl->__getLastRequestHeaders());
     // var_dump($axl->__getLastRequest());
     

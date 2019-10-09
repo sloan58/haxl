@@ -22,14 +22,21 @@ try {
     var_dump($e->getMessage());
 }
 
+$query = 'SELECT name FROM device WHERE tkclass = (SELECT enum FROM typeclass WHERE name = "Phone") AND name LIKE "SEP%"';
+
 try {
 
-    $response = $axl->getCCMVersion();
+    $response = $axl->executeSqlQuery(['sql' => $query]);
 
-    $version = $response->return->componentVersion->version;
+    // Print AXL Soap Request/Response Headers
+    // var_dump($axl->__getLastRequestHeaders());
+    // var_dump($axl->__getLastRequest());
     
-    printf("You're running version %s", $version);
-
+    // var_dump($axl->__getLastResponseHeaders());
+    // print_r($axl->__getLastResponse());
+    
+    var_dump($response->return->row);
+    
 } catch (SoapFault $e) {
 
     var_dump($e->getMessage());
